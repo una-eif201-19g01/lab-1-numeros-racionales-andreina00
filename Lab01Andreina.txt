@@ -1,0 +1,101 @@
+#include <iostream>
+#include<sstream>
+using namespace std;
+class Fraccion{
+private:
+	int nume;
+	int deno;
+	
+	
+public:
+	Fraccion( );
+	Fraccion(int , int );
+	~Fraccion();
+	
+	int getNumerador(); 
+	int getDenominador();
+	void setNumerador(int);
+	void setDenominador(int);
+	string toString();
+	void elevarFraccionAlaN(int); 
+	Fraccion suma (Fraccion ); 
+	Fraccion resta (Fraccion ); 
+	Fraccion multiplicacion(Fraccion ); 
+	Fraccion division (Fraccion); 
+	bool esFraccion();
+	
+};
+Fraccion::Fraccion( ){
+	nume=3;
+	deno=4;}
+Fraccion::Fraccion(int n ,int d ){
+	nume=n;
+	deno=d;}
+Fraccion::~Fraccion(){}
+
+int Fraccion::getNumerador(){return nume;} 
+int Fraccion::getDenominador(){return deno;}
+
+void Fraccion::setNumerador(int n){nume=n;}
+void Fraccion::setDenominador(int d){deno=d;}
+string Fraccion::toString(){
+	stringstream s;
+	s<<nume<<"/"<<deno;
+	return s.str();
+}
+
+
+void Fraccion::elevarFraccionAlaN(int e){
+	int cont1=1;
+	int cont2=1;
+	for (int i=1; i<=e; i++){
+		cont1*=nume;
+		cont2*=deno;
+	}
+	cout<<(float)cont1<<"/"<<(float)cont2<<endl;
+	
+	
+	
+} 
+
+
+Fraccion Fraccion::suma (Fraccion f){
+	nume=(nume*f.getDenominador())+(deno*f.getNumerador());
+	deno=deno*f.getDenominador();
+	return Fraccion(nume, deno); 
+	
+} 
+Fraccion Fraccion::resta (Fraccion f){
+	nume=(nume*f.getDenominador())-(deno*f.getNumerador());
+	deno=deno*f.getDenominador();
+	return Fraccion(nume, deno); 
+}  
+Fraccion Fraccion::multiplicacion(Fraccion f){
+	nume=(nume*f.getNumerador());
+	deno=(deno*f.getDenominador());
+	return Fraccion(nume, deno);
+} 
+Fraccion Fraccion::division (Fraccion f){
+	nume=(nume*f.getDenominador());
+	deno=(deno*f.getNumerador());
+	return Fraccion(nume, deno);}
+
+bool Fraccion::esFraccion(){return (deno!=0);}//Se retorna el true de la setencia
+
+int main() {
+	int n1,d1,n2,d2,e;
+	cout<<"---Trabajndo con fracciones---"<<endl;
+	cout<<"-Ingrese el numerador y denominador de la Fraccion 1: "<<endl;cin>>n1>>d1;
+	cout<<"-Ingrese el numerador y denominador de la Fraccion 2: "<<endl;cin>>n2>>d2; Fraccion fra;Fraccion fra1(n1,d1); Fraccion fra2(n2,d2);
+	if (fra1.esFraccion() and fra2.esFraccion()){
+		
+		
+	cout<<"Ingrese un valor de exponene: "<<endl;cin>>e; cout<<"->La fraccion "<<fra1.toString()<<" elevada a exponente "<<e<< " es: ";fra1.elevarFraccionAlaN(e);
+		
+	cout<<"La suma de "<<fra1.toString()<<" + "<<fra2.toString()<<" = ";fra1.suma(fra2);cout<<fra1.toString()<<endl;
+        cout<<"La resta de "<<fra2.toString()<<" - "<<fra1.toString()<<" = ";fra2.suma(fra1);cout<<fra2.toString()<<endl;;
+	cout<<"La multiplicacion de "<<fra2.toString()<<" * "<<fra1.toString()<<" = ";fra2.multiplicacion(fra1);cout<<fra2.toString()<<endl;
+        cout<<"La division de "<<fra2.toString()<<" % "<<fra1.toString()<<" = ";fra2.division(fra1);cout<<fra2.toString();
+	}
+	else{cout<<"error";	}
+	return 0;}
